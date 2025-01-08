@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.info.License;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "extension-name REST API",
+                title = "repo-template-testing REST API",
                 version = "v1",
                 description = "",
                 termsOfService = "",
