@@ -1,4 +1,4 @@
-package ch.sbb.polarion.extension.extension_name.rest.controller;
+package ch.sbb.polarion.extension.repo_template_testing.rest.controller;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
