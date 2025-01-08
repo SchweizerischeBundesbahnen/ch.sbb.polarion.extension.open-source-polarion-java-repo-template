@@ -11,7 +11,7 @@
 
 # Polarion ALM extension to test the git repository template
 
-This Polarion extension is just an empty as the template repository. It is used to test the template repository. 
+This Polarion extension is just an empty as the template repository. It is used to test the template repository.
 ## Build
 
 This extension can be produced using maven:
