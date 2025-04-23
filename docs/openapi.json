@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "repo-template-testing REST API",
+    "title": "open-source-polarion-java-repo-template REST API",
     "version": "v1"
   },
   "paths": {
@@ -55,17 +55,14 @@
         "properties": {
           "baseUrl": {
             "description": "Returns the base URL constructed with the extension context",
-            "example": "/polarion/pdf-exporter",
             "type": "string"
           },
           "extensionContext": {
             "description": "The extension context used as a base for URL construction",
-            "example": "pdf-exporter",
             "type": "string"
           },
           "restUrl": {
             "description": "Returns the REST API URL constructed with the extension context",
-            "example": "/polarion/pdf-exporter/rest",
             "type": "string"
           },
           "swaggerUiUrl": {

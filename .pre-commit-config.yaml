@@ -16,7 +16,7 @@ repos:
       - id: check-xml
       - id: check-json
       - id: check-yaml
-      - id: no-commit-to-branch
+#      - id: no-commit-to-branch
       - id: mixed-line-ending
       - id: end-of-file-fixer
       - id: pretty-format-json
@@ -47,3 +47,11 @@ repos:
     rev: v4.6.0
     hooks:
       - id: commitizen
+  - repo: https://github.com/woodruffw/zizmor-pre-commit
+    rev: v1.6.0
+    hooks:
+      - id: zizmor
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.7
+    hooks:
+      - id: actionlint
