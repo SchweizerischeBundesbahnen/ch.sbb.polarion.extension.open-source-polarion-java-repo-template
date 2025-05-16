@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.0.0...v1.1.0) (2025-05-16)
+
+
+### Features
+
+* add ActionLint workflow to check GitHub Actions for errors ([3fed567](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/3fed56787058191e8e83bbb0188523d79861460f))
+
+
+### Bug Fixes
+
+* update GitHub release condition to exclude SNAPSHOT versions ([d88bfaa](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/d88bfaa753ddb556b7620cd320b96565a3048251))
+
 ## 1.0.0 (2025-04-23)
 
 
