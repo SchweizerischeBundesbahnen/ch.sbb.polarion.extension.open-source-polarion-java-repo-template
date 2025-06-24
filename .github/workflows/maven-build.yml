@@ -65,6 +65,7 @@ jobs:
           name: maven-artifacts
           path: |
             target/*.jar
+            target/*.pom
           retention-days: 1
     outputs:
       project_version: ${{ steps.project_metadata.outputs.version }}
