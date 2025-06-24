@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.2.1...v1.3.0) (2025-06-24)
+
+
+### Features
+
+* add .pom file to maven artifacts and update settings for VS Code extensions ([a79272e](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/a79272ec2784ccd70fe1bf91e217742bccb036a8))
+
 ## [1.2.1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.2.0...v1.2.1) (2025-06-24)
 
 
