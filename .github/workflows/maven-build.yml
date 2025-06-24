@@ -67,7 +67,6 @@ jobs:
             target/*.jar
             pom.xml
             ${{ env.SETTINGS_XML }}
-            README.md
           retention-days: 1
     outputs:
       project_version: ${{ steps.project_metadata.outputs.version }}
@@ -108,6 +107,7 @@ jobs:
             -Dmaven.javadoc.skip=true \
             -Dmaven.source.skip=true \
             -Dmarkdown2html.skip=true \
+            -Dmarkdown2html.skipHtmlGeneration=true \
             -P gpg-sign \
             -P central-publishing \
             -Dcentral-publishing-maven-plugin.autoPublish=false
@@ -151,6 +151,7 @@ jobs:
             -Dmaven.javadoc.skip=true \
             -Dmaven.source.skip=true \
             -Dmarkdown2html.skip=true \
+            -Dmarkdown2html.skipHtmlGeneration=true \
             -P deploy-github-packages
       - name: 📦 Upload assets to GitHub Release
         if: ${{ needs.build.outputs.is_release == 'true' }}
