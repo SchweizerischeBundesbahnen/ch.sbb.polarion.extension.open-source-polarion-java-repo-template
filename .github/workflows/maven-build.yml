@@ -65,9 +65,6 @@ jobs:
           name: maven-artifacts
           path: |
             target/*.jar
-            pom.xml
-            ${{ env.SETTINGS_XML }}
-            README.md
           retention-days: 1
     outputs:
       project_version: ${{ steps.project_metadata.outputs.version }}
@@ -108,7 +105,6 @@ jobs:
             -Dmaven.javadoc.skip=true \
             -Dmaven.source.skip=true \
             -Dmarkdown2html.skip=true \
-            -Dmarkdown2html.skipHtmlGeneration=true \
             -P gpg-sign \
             -P central-publishing \
             -Dcentral-publishing-maven-plugin.autoPublish=false
@@ -124,6 +120,11 @@ jobs:
       GITHUB_TOKEN: ${{ github.token }}
       GITHUB_REPO_NAME: ${{ github.repository }}
     steps:
+      - name: 📄 Checkout the repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          fetch-depth: 1
+          persist-credentials: false
       - name: 📥 Download build artifacts
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4.3.0
         with:
@@ -152,7 +153,6 @@ jobs:
             -Dmaven.javadoc.skip=true \
             -Dmaven.source.skip=true \
             -Dmarkdown2html.skip=true \
-            -Dmarkdown2html.skipHtmlGeneration=true \
             -P deploy-github-packages
       - name: 📦 Upload assets to GitHub Release
         if: ${{ needs.build.outputs.is_release == 'true' }}
