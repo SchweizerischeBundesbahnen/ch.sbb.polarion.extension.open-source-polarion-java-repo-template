@@ -67,6 +67,7 @@ jobs:
             target/*.jar
             pom.xml
             ${{ env.SETTINGS_XML }}
+            README.md
           retention-days: 1
     outputs:
       project_version: ${{ steps.project_metadata.outputs.version }}
