@@ -102,7 +102,11 @@ jobs:
           mvn --batch-mode -s "${SETTINGS_XML}" deploy \
             -Dmaven.test.skip=true \
             -Dmaven.main.skip=true \
-            -Dmaven.jar.attach=false \
+            -Dmaven.jar.skip=true \
+            -Dmaven.install.skip=true \
+            -Dmaven.javadoc.skip=true \
+            -Dmaven.source.skip=true \
+            -Dmarkdown2html.skip=true \
             -P gpg-sign \
             -P central-publishing \
             -Dcentral-publishing-maven-plugin.autoPublish=false
@@ -141,9 +145,11 @@ jobs:
           mvn --batch-mode -s "${SETTINGS_XML}" deploy \
             -Dmaven.test.skip=true \
             -Dmaven.main.skip=true \
-            -Dmaven.jar.attach=false \
+            -Dmaven.jar.skip=true \
+            -Dmaven.install.skip=true \
             -Dmaven.javadoc.skip=true \
             -Dmaven.source.skip=true \
+            -Dmarkdown2html.skip=true \
             -P deploy-github-packages
       - name: 📦 Upload assets to GitHub Release
         if: ${{ needs.build.outputs.is_release == 'true' }}
