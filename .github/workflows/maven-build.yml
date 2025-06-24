@@ -36,9 +36,6 @@ jobs:
       - name: 📝 Extract project metadata and build
         id: project_metadata
         run: |
-          # Build and extract version in one go
-          mvn --batch-mode -s "${SETTINGS_XML}" clean package
-          # Extract version from pom.xml without running Maven again
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           # Check if it is a release
@@ -102,13 +99,10 @@ jobs:
           cache: maven
       - name: 📦 Deploy to Maven Central
         run: |
-          # Skip compilation since we are using pre-built artifacts
           mvn --batch-mode -s "${SETTINGS_XML}" deploy \
             -Dmaven.test.skip=true \
             -Dmaven.main.skip=true \
             -Dmaven.jar.attach=false \
-            -Dmaven.javadoc.skip=true \
-            -Dmaven.source.skip=true \
             -P gpg-sign \
             -P central-publishing \
             -Dcentral-publishing-maven-plugin.autoPublish=false
@@ -141,7 +135,6 @@ jobs:
           cache: maven
       - name: 📦 Deploy to GitHub Packages
         run: |
-          # Skip compilation since we are using pre-built artifacts
           mvn --batch-mode -s "${SETTINGS_XML}" deploy \
             -Dmaven.test.skip=true \
             -Dmaven.main.skip=true \
