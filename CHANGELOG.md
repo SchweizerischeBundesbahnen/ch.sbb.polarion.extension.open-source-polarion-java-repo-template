@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.2.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.1.0...v1.2.0) (2025-06-24)
+
+
+### Features
+
+* add settings.local.json for GitHub Actions permissions configuration ([96ab7d1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/96ab7d1fef0a805b6b145cd11435fe9ac0e5dc95))
+* Update README.md ([#18](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/issues/18)) ([374fba3](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/374fba3074a03aca500cc18301f75ef4b2ce3ba2))
+
+
+### Bug Fixes
+
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v10 ([#17](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/issues/17)) ([2a32da9](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/2a32da9ff86f8d1e936435aad7435aebb2307ece))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v9.1.1 ([daf4b47](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/daf4b475ff329cdf743ba4a6c47e2bd81c37a1c2))
+* update JDK distribution from adopt to temurin in maven-build.yml ([8b121c4](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/8b121c41f95c7cebd9f225c606a82f3749d88930))
+* update version to 1.1.1-SNAPSHOT in pom.xml ([48fbdf2](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/48fbdf2da9e6678944aa11982eb6722bf2e92e32))
+
+
+### Documentation
+
+* update README.md with documentation sections and add release-please.yml for automated releases ([48a0575](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/48a05753060f9bd62497618258b8a22a13e0bbde))
+
 ## [1.1.0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.0.0...v1.1.0) (2025-05-22)
 
 
