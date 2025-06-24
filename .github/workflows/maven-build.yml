@@ -106,6 +106,8 @@ jobs:
             -Dmaven.test.skip=true \
             -Dmaven.main.skip=true \
             -Dmaven.jar.attach=false \
+            -Dmaven.javadoc.skip=true \
+            -Dmaven.source.skip=true \
             -P gpg-sign \
             -P central-publishing \
             -Dcentral-publishing-maven-plugin.autoPublish=false
