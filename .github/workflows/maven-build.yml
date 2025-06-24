@@ -8,7 +8,7 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 env:
-  SETTINGS_XML: .mvn/settings.xml
+  SETTINGS_XML: ${{ github.workspace }}/.mvn/settings.xml
   JAVA_VERSION: 17
   JAVA_DISTRIBUTION: temurin
 jobs:
@@ -84,6 +84,11 @@ jobs:
       COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_TOKEN: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_TOKEN }}
       COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE }}
     steps:
+      - name: 📄 Checkout the repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          fetch-depth: 1
+          persist-credentials: false
       - name: 📥 Download build artifacts
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4.3.0
         with:
@@ -100,11 +105,7 @@ jobs:
           mvn --batch-mode -s "${SETTINGS_XML}" deploy \
             -Dmaven.test.skip=true \
             -Dmaven.main.skip=true \
-            -Dmaven.jar.skip=true \
-            -Dmaven.install.skip=true \
-            -Dmaven.javadoc.skip=true \
-            -Dmaven.source.skip=true \
-            -Dmarkdown2html.skip=true \
+            -Dmaven.jar.attach=false \
             -P gpg-sign \
             -P central-publishing \
             -Dcentral-publishing-maven-plugin.autoPublish=false
@@ -129,13 +130,6 @@ jobs:
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4.3.0
         with:
           name: maven-artifacts
-      - name: 📋 Debug - List downloaded files
-        run: |
-          echo "Current working directory: $(pwd)"
-          echo "Files in current directory:"
-          ls -la
-          echo "Files in .mvn directory (if exists):"
-          ls -la .mvn/ || echo "No .mvn directory found"
       - name: 🧱 Set up JDK and Maven with cache
         uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00  # v4.7.1
         with:
@@ -148,11 +142,9 @@ jobs:
           mvn --batch-mode -s "${SETTINGS_XML}" deploy \
             -Dmaven.test.skip=true \
             -Dmaven.main.skip=true \
-            -Dmaven.jar.skip=true \
-            -Dmaven.install.skip=true \
+            -Dmaven.jar.attach=false \
             -Dmaven.javadoc.skip=true \
             -Dmaven.source.skip=true \
-            -Dmarkdown2html.skip=true \
             -P deploy-github-packages
       - name: 📦 Upload assets to GitHub Release
         if: ${{ needs.build.outputs.is_release == 'true' }}
