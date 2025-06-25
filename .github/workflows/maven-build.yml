@@ -103,6 +103,8 @@ jobs:
           mvn --batch-mode -s "${SETTINGS_XML}" deploy \
             -Dmaven.test.skip=true \
             -Dmaven.main.skip=true \
+            -Dmaven.javadoc.skip=true \
+            -Dmaven.source.skip=true \
             -P central-publishing \
             -Dcentral-publishing-maven-plugin.autoPublish=false
   deploy-github-packages:
