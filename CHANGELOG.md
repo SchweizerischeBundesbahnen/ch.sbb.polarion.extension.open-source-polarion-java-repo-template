@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.5](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.4...v1.3.5) (2025-06-25)
+
+
+### Bug Fixes
+
+* include .pom files in maven artifact paths in maven-build.yml ([c78b137](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/c78b137fadbdfb6f93baa27ac58c26cf53086f7b))
+
 ## [1.3.4](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.3...v1.3.4) (2025-06-25)
 
 
