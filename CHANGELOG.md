@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.7](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.6...v1.3.7) (2025-06-25)
+
+
+### Bug Fixes
+
+* update maven-build.yml to streamline GPG signing and improve permissions in settings.local.json ([c0bbcb9](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/c0bbcb9c394c33d8488bc56319f6340de8ac2e79))
+
 ## [1.3.6](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.5...v1.3.6) (2025-06-25)
 
 
