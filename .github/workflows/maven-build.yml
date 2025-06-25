@@ -33,7 +33,6 @@ jobs:
           distribution: ${{ env.JAVA_DISTRIBUTION }}
           java-version: ${{ env.JAVA_VERSION }}
           cache: maven
-          gpg-private-key: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PRIVATE_KEY }}
       - name: 📝 Extract project metadata and build
         id: project_metadata
         run: |
@@ -96,6 +95,7 @@ jobs:
           distribution: ${{ env.JAVA_DISTRIBUTION }}
           java-version: ${{ env.JAVA_VERSION }}
           cache: maven
+          gpg-private-key: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PRIVATE_KEY }}
       - name: 📦 Deploy to Maven Central
         run: |
           mvn --batch-mode -s "${SETTINGS_XML}" deploy \
@@ -103,7 +103,8 @@ jobs:
             -Dmaven.main.skip=true \
             -Dmaven.javadoc.skip=true \
             -Dmaven.source.skip=true \
-            -P central-publishing,gpg-sign \
+            -P gpg-sign \
+            -P central-publishing \
             -Dcentral-publishing-maven-plugin.autoPublish=false
   deploy-github-packages:
     needs: build
