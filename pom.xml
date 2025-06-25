@@ -44,9 +44,8 @@
     </issueManagement>
 
     <properties>
-        <maven-jar-plugin.Extension-Context>ch.sbb.polarion.extension.open-source-polarion-java-repo-template</maven-jar-plugin.Extension-Context>
-        <maven-jar-plugin.Automatic-Module-Name>ch.sbb.polarion.extension.open_source_polarion_java_repo_template</maven-jar-plugin.Automatic-Module-Name>
-
+        <maven-jar-plugin.Extension-Context>extension-name</maven-jar-plugin.Extension-Context>
+        <maven-jar-plugin.Automatic-Module-Name>ch.sbb.polarion.extension.extension_name</maven-jar-plugin.Automatic-Module-Name>
         <web.app.name>${maven-jar-plugin.Extension-Context}</web.app.name>
     </properties>
 
