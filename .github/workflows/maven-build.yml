@@ -66,6 +66,7 @@ jobs:
           name: maven-artifacts
           path: |
             target/*.jar
+            target/*.pom
             target/*.asc
           retention-days: 1
     outputs:
