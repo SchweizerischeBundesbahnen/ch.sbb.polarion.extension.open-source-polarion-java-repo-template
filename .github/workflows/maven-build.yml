@@ -120,9 +120,9 @@ jobs:
       contents: read
       packages: read
     env:
-      PROJECT_VERSION: ${{ needs.build.outputs.project_version }}
-      ARTIFACT_ID: ${{ needs.build.outputs.artifact_id }}
-      GROUP_ID: ${{ needs.build.outputs.group_id }}
+      COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_USERNAME: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_USERNAME }}
+      COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_TOKEN: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_TOKEN }}
+      COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PRIVATE_KEY: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PRIVATE_KEY }}
     steps:
       - name: 📄 Checkout the repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
@@ -137,9 +137,13 @@ jobs:
           cache: maven
       - name: 📦 Deploy to Maven Central
         run: |
-          # the artefacts are already installed and are located in .m2 cache
+          # the artefacts are already downloaded from the previous job
           mvn --batch-mode -s "${SETTINGS_XML}" deploy \
             -Dmaven.test.skip=true \
+            -Dmaven.main.skip=true \
+            -Dmaven.javadoc.skip=true \
+            -Dmaven.source.skip=true \
+            -P gpg-sign \
             -P central-publishing \
             -Dcentral-publishing-maven-plugin.autoPublish=false
   deploy-github-packages:
