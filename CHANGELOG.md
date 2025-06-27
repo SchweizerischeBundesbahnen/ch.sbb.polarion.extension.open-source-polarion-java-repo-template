@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.14](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.13...v1.3.14) (2025-06-27)
+
+
+### Bug Fixes
+
+* update maven-build.yml to use Sonatype Central credentials from secrets ([daeb8c1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/daeb8c15e6f559840da52ca78c43f99b8b553038))
+
 ## [1.3.13](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.12...v1.3.13) (2025-06-27)
 
 
