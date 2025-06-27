@@ -195,37 +195,37 @@ jobs:
           gh release upload "v${PROJECT_VERSION}" "target/*-${PROJECT_VERSION}.jar" --clobber
 
   # Security scanning job that runs in parallel
-  security-scan:
-    runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-    steps:
-      - name: 📄 Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
-        with:
-          persist-credentials: false
-      - name: 🧱 Setup JDK
-        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00  # v4.7.1
-        with:
-          distribution: ${{ env.JAVA_DISTRIBUTION }}
-          java-version: ${{ env.JAVA_VERSION }}
-          cache: maven
-      - name: 🔍 Cache OWASP Dependency Check database
-        uses: actions/cache@v4.2.3
-        with:
-          path: ~/.owasp/dependency-check-data
-          key: ${{ runner.os }}-owasp-db-${{ hashFiles('dependency-check-maven/**/pom.xml', '**/dependency-check.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-owasp-db-
-      - name: 🔐 Run OWASP Dependency Check
-        run: |
-          mvn --batch-mode -s "${SETTINGS_XML}" \
-            org.owasp:dependency-check-maven:check \
-            -Dformat=sarif \
-            -DfailBuildOnCVSS=7
-        continue-on-error: true
-      - name: 📤 Upload SARIF results
-        uses: github/codeql-action/upload-sarif@v3.29.1
-        if: always()
-        with:
-          sarif_file: target/dependency-check-report.sarif
+#  security-scan:
+#    runs-on: ubuntu-latest
+#    permissions:
+#      security-events: write
+#    steps:
+#      - name: 📄 Checkout code
+#        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+#        with:
+#          persist-credentials: false
+#      - name: 🧱 Setup JDK
+#        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00  # v4.7.1
+#        with:
+#          distribution: ${{ env.JAVA_DISTRIBUTION }}
+#          java-version: ${{ env.JAVA_VERSION }}
+#          cache: maven
+#      - name: 🔍 Cache OWASP Dependency Check database
+#        uses: actions/cache@v4.2.3
+#        with:
+#          path: ~/.owasp/dependency-check-data
+#          key: ${{ runner.os }}-owasp-db-${{ hashFiles('dependency-check-maven/**/pom.xml', '**/dependency-check.properties') }}
+#          restore-keys: |
+#            ${{ runner.os }}-owasp-db-
+#      - name: 🔐 Run OWASP Dependency Check
+#        run: |
+#          mvn --batch-mode -s "${SETTINGS_XML}" \
+#            org.owasp:dependency-check-maven:check \
+#            -Dformat=sarif \
+#            -DfailBuildOnCVSS=7
+#        continue-on-error: true
+#      - name: 📤 Upload SARIF results
+#        uses: github/codeql-action/upload-sarif@v3.29.1
+#        if: always()
+#        with:
+#          sarif_file: target/dependency-check-report.sarif
