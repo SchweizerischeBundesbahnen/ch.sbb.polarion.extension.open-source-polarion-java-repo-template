@@ -65,6 +65,10 @@ Extract Polarion dependencies using [polarion-artifacts-deployer](https://github
 
 The project uses GitHub Actions with the following key workflows:
 - **maven-build.yml**: Main build, test, and SonarCloud analysis
+- **openapi-validation.yml**: Validates OpenAPI specification
+- **pr.yml**: Pull request specific validations
+- **release-please.yml**: Automated release management
+- **actionlint.yml**: GitHub Actions workflow linting
 - **Dual deployment**: Maven Central (releases) and GitHub Packages
 - **Quality gates**: SonarCloud integration for code quality
 
