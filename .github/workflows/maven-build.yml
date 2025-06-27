@@ -27,6 +27,7 @@ jobs:
       IO_JFROG_SBB_POLARION_TOKEN: ${{ secrets.IO_JFROG_SBB_POLARION_TOKEN }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       MARKDOWN2HTML_MAVEN_PLUGIN_FAIL_ON_ERROR: true
+      COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE }}
     steps:
       - name: 📄 Checkout the repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
@@ -39,6 +40,7 @@ jobs:
           distribution: ${{ env.JAVA_DISTRIBUTION }}
           java-version: ${{ env.JAVA_VERSION }}
           cache: maven
+          gpg-private-key: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PRIVATE_KEY }}
       - name: 📝 Extract project metadata
         id: project_metadata
         run: |
@@ -69,9 +71,9 @@ jobs:
           GITHUB_HEAD_REF: ${{ github.head_ref }}
         run: |
           if [ -n "${GITHUB_HEAD_REF}" ]; then
-            mvn --batch-mode -s "${SETTINGS_XML}" clean install sonar:sonar -Dsonar.branch.name="${GITHUB_HEAD_REF}"
+            mvn --batch-mode -s "${SETTINGS_XML}" clean install sonar:sonar -Dsonar.branch.name="${GITHUB_HEAD_REF}" -P gpg-sign
           else
-            mvn --batch-mode -s "${SETTINGS_XML}" clean install sonar:sonar
+            mvn --batch-mode -s "${SETTINGS_XML}" clean install sonar:sonar -P gpg-sign
           fi
       - name: 📦 Build with Maven for PRs
         if: github.event_name == 'pull_request'
@@ -121,34 +123,24 @@ jobs:
       PROJECT_VERSION: ${{ needs.build.outputs.project_version }}
       ARTIFACT_ID: ${{ needs.build.outputs.artifact_id }}
       GROUP_ID: ${{ needs.build.outputs.group_id }}
-      COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE }}
     steps:
       - name: 📄 Checkout the repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
         with:
           fetch-depth: 1
           persist-credentials: false
-      - name: 📥 Download build artifacts
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4.3.0
-        with:
-          name: maven-artifacts
-          path: target/
       - name: 🧱 Set up JDK and Maven
         uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00  # v4.7.1
         with:
           distribution: ${{ env.JAVA_DISTRIBUTION }}
           java-version: ${{ env.JAVA_VERSION }}
           cache: maven
-          gpg-private-key: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PRIVATE_KEY }}
       - name: 📦 Deploy to Maven Central
         run: |
+          # the artefacts are already installed and are located in .m2 cache
           mvn --batch-mode -s "${SETTINGS_XML}" deploy \
             -Dmaven.test.skip=true \
-            -Dmaven.main.skip=true \
-            -Dmaven.javadoc.skip=true \
-            -Dmaven.source.skip=true \
             -P central-publishing \
-            -P gpg-sign \
             -Dcentral-publishing-maven-plugin.autoPublish=false
   deploy-github-packages:
     needs: build
