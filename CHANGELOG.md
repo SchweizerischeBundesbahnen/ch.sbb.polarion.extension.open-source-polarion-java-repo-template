@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.11](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.10...v1.3.11) (2025-06-27)
+
+
+### Bug Fixes
+
+* update maven-build.yml to skip main module during deployment and streamline artifact handling ([661b23e](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/661b23e1f4d09b635f3ec915fee11ac44578c1cd))
+
 ## [1.3.10](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.9...v1.3.10) (2025-06-27)
 
 
