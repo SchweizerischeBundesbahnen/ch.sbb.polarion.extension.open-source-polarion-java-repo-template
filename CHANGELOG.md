@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.13](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.12...v1.3.13) (2025-06-27)
+
+
+### Bug Fixes
+
+* update maven-build.yml to add GPG passphrase and private key for signing ([0fc442e](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/0fc442eafeccf026045e4d1c1440c0e4858c2af1))
+
 ## [1.3.12](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.11...v1.3.12) (2025-06-27)
 
 
