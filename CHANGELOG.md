@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.10](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.9...v1.3.10) (2025-06-27)
+
+
+### Bug Fixes
+
+* add connectedMode.json and update maven-build.yml to include GPG signing profile for builds ([c792248](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/c792248e929a576f696f167e7d03873eaef9c15f))
+
 ## [1.3.9](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.8...v1.3.9) (2025-06-27)
 
 
