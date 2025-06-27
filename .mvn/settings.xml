@@ -19,12 +19,6 @@
             </repositories>
             <pluginRepositories/>
         </profile>
-        <profile>
-            <id>deploy-github-packages</id>
-            <properties>
-                <altDeploymentRepository>github::https://maven.pkg.github.com/${env.GITHUB_REPO_NAME}</altDeploymentRepository>
-            </properties>
-        </profile>
     </profiles>
     <servers>
         <server>

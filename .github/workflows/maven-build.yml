@@ -187,9 +187,9 @@ jobs:
           mvn deploy:deploy-file \
             -Dfile="target/${ARTIFACT_ID}-${PROJECT_VERSION}.jar" \
             -DpomFile="target/${ARTIFACT_ID}-${PROJECT_VERSION}.pom" \
+            -Durl="https://maven.pkg.github.com/${GITHUB_REPO_NAME}" \
             -DrepositoryId="github" \
-            -s "${SETTINGS_XML}" \
-            -P deploy-github-packages
+            -s "${SETTINGS_XML}"
       - name: 📦 Upload assets to GitHub Release
         if: ${{ needs.build.outputs.is_release == 'true' }}
         run: |-
