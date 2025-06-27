@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.15](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.14...v1.3.15) (2025-06-27)
+
+
+### Bug Fixes
+
+* update maven-build.yml to add GPG passphrase for Sonatype Central deployment ([3c9c819](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/3c9c819b2274cf7f8ee48a342359146dd7e152cd))
+
 ## [1.3.14](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.13...v1.3.14) (2025-06-27)
 
 
