@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.3.12](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.11...v1.3.12) (2025-06-27)
+
+
+### Bug Fixes
+
+* add repositoryId parameter for GitHub package deployment in maven-build.yml ([0c61d22](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/0c61d22c3448206cf87508e892b95e3bb16b3006))
+* comment out test results publishing and coverage upload steps in maven-build.yml ([129070c](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/129070c1852f5f0313eff301833c68872dfca391))
+* enhance maven-build.yml for improved artifact handling and add integration tests for OpenAPIInfo ([6c61572](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/6c61572f0f56b3594c35e9120f10b2bb60fa6ff8))
+* update maven-build.yml and CLAUDE.md to improve workflow caching and add new validation workflows ([c516ccb](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/c516ccb847f52ea6677913374916e28448f18e09))
+* update maven-build.yml to change GPG key reference and adjust comment mode for test results ([036db43](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/036db437c1acd1c1430edbcf45a3fe30553a1ea6))
+* update maven-build.yml to conditionally run Maven commands based on branch presence and enhance settings.local.json with additional commands ([cfefcb0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/cfefcb06bb54f71d18eeda517608c24e5e2a4d0f))
+* update maven-build.yml to deploy main, sources, and javadoc JARs to Sonatype Central ([fc42ea4](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/fc42ea49763b04a467d7e8f332fe2e46392e5571))
+* update maven-build.yml to disable comment mode for test results and comment out security scan steps ([48a2f76](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/48a2f761714ef9bdb2e614862b70adc2d7cc6cc6))
+* update maven-build.yml to include repository URL for GitHub package deployment ([4da5cf0](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/4da5cf0b686723935647279151acacdd55c59298))
+* update maven-build.yml to streamline deployment process and adjust GPG key usage ([9cdb951](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/9cdb95144de9f6022a59b660b0f41666efb64c96))
+* update maven-build.yml to use latest action versions for caching and publishing test results ([d6860d5](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/d6860d5729c37db85b46270f6ed15de7d338a477))
+* update maven-build.yml to use latest action versions for SonarQube caching and test results publishing ([5b33fc9](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/5b33fc938dac4b635bb4a5d38de4f05ee4db7192))
+* update maven-build.yml to use latest Codecov action version and add caching for OWASP Dependency Check database ([969cb5a](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/969cb5a6dc33f327608df91625633c12b1010c23))
+
 ## [1.3.11](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.10...v1.3.11) (2025-06-27)
 
 
