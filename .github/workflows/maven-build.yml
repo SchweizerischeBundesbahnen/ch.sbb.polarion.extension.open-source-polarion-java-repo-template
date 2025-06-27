@@ -17,36 +17,54 @@ jobs:
     permissions:
       contents: read
       packages: read
+      checks: write
+    outputs:
+      project_version: ${{ steps.project_metadata.outputs.version }}
+      artifact_id: ${{ steps.project_metadata.outputs.artifact_id }}
+      group_id: ${{ steps.project_metadata.outputs.group_id }}
+      is_release: ${{ steps.project_metadata.outputs.is_release }}
     env:
       IO_JFROG_SBB_POLARION_TOKEN: ${{ secrets.IO_JFROG_SBB_POLARION_TOKEN }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       MARKDOWN2HTML_MAVEN_PLUGIN_FAIL_ON_ERROR: true
       COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PRIVATE_KEY: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PRIVATE_KEY }}
-      COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE }}
     steps:
       - name: 📄 Checkout the repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
         with:
           fetch-depth: 0  # Sonar needs full history
           persist-credentials: false
-      - name: 🧱 Set up JDK and Maven with cache
+      - name: 🧱 Set up JDK and Maven
         uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00  # v4.7.1
         with:
           distribution: ${{ env.JAVA_DISTRIBUTION }}
           java-version: ${{ env.JAVA_VERSION }}
           cache: maven
           gpg-private-key: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PRIVATE_KEY }}
-      - name: 📝 Extract project metadata and build
+      - name: 📝 Extract project metadata
         id: project_metadata
         run: |
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+          GROUP_ID=$(mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout)
           # Check if it is a release
           if [[ ! "${VERSION}" =~ -SNAPSHOT$ ]]; then
-            echo "is_release=true" >> "$GITHUB_OUTPUT"
+            IS_RELEASE=true
           else
-            echo "is_release=false" >> "$GITHUB_OUTPUT"
+            IS_RELEASE=false
           fi
+          {
+            echo "version=${VERSION}"
+            echo "artifact_id=${ARTIFACT_ID}"
+            echo "group_id=${GROUP_ID}"
+            echo "is_release=${IS_RELEASE}"
+          } >> "$GITHUB_OUTPUT"
+      - name: 🔍 Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
       - name: 📦 Build with Maven for Pushes
         if: github.event_name == 'push'
         env:
@@ -60,6 +78,26 @@ jobs:
           GITHUB_PR_NUMBER_REF: ${{ github.event.pull_request.number }}
         run: mvn --batch-mode -s "${SETTINGS_XML}" clean verify -P gpg-sign sonar:sonar -Dsonar.pullrequest.base="${GITHUB_HEAD_REF}" -Dsonar.pullrequest.branch="${GITHUB_BASE_REF}"
           -Dsonar.pullrequest.key="${GITHUB_PR_NUMBER_REF}"
+      - name: 📋 Analyze dependencies
+        if: github.event_name == 'pull_request'
+        run: mvn --batch-mode dependency:analyze
+        continue-on-error: true
+      - name: 📊 Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@567cc7f8dcea3eba5da355f6ebc95663310d8a07  # v2.17.0
+        if: always()
+        with:
+          files: |
+            target/surefire-reports/*.xml
+            target/failsafe-reports/*.xml
+          check_name: Test Results
+          comment_mode: false
+      - name: 📈 Upload coverage to Codecov
+        uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238  # v4.6.0
+        if: always()
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: target/site/jacoco/jacoco.xml
+          fail_ci_if_error: false
       - name: 📦 Upload build artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
         with:
@@ -69,9 +107,7 @@ jobs:
             target/*.pom
             target/*.asc
           retention-days: 1
-    outputs:
-      project_version: ${{ steps.project_metadata.outputs.version }}
-      is_release: ${{ steps.project_metadata.outputs.is_release }}
+          if-no-files-found: error
   deploy-maven-central:
     needs: build
     if: ${{ needs.build.outputs.is_release == 'true' && github.ref == 'refs/heads/main' }}
@@ -80,8 +116,9 @@ jobs:
       contents: read
       packages: read
     env:
-      COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_USERNAME: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_USERNAME }}
-      COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_TOKEN: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_TOKEN }}
+      PROJECT_VERSION: ${{ needs.build.outputs.project_version }}
+      ARTIFACT_ID: ${{ needs.build.outputs.artifact_id }}
+      GROUP_ID: ${{ needs.build.outputs.group_id }}
     steps:
       - name: 📄 Checkout the repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
@@ -93,7 +130,7 @@ jobs:
         with:
           name: maven-artifacts
           path: target/
-      - name: 🧱 Set up JDK and Maven with cache
+      - name: 🧱 Set up JDK and Maven
         uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00  # v4.7.1
         with:
           distribution: ${{ env.JAVA_DISTRIBUTION }}
@@ -116,7 +153,11 @@ jobs:
       contents: write
       packages: write
     env:
+      PROJECT_VERSION: ${{ needs.build.outputs.project_version }}
+      ARTIFACT_ID: ${{ needs.build.outputs.artifact_id }}
+      GROUP_ID: ${{ needs.build.outputs.group_id }}
       GITHUB_TOKEN: ${{ github.token }}
+      GITHUB_ACTOR: ${{ github.actor }}
       GITHUB_REPO_NAME: ${{ github.repository }}
     steps:
       - name: 📄 Checkout the repository
@@ -129,7 +170,7 @@ jobs:
         with:
           name: maven-artifacts
           path: target/
-      - name: 🧱 Set up JDK and Maven with cache
+      - name: 🧱 Set up JDK and Maven
         uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00  # v4.7.1
         with:
           distribution: ${{ env.JAVA_DISTRIBUTION }}
@@ -137,15 +178,42 @@ jobs:
           cache: maven
       - name: 📦 Deploy to GitHub Packages
         run: |
-          mvn --batch-mode -s "${SETTINGS_XML}" deploy \
-            -Dmaven.test.skip=true \
-            -Dmaven.main.skip=true \
-            -Dmaven.javadoc.skip=true \
-            -Dmaven.source.skip=true \
+          # Deploy main JAR
+          mvn deploy:deploy-file \
+            -Dfile="target/${ARTIFACT_ID}-${PROJECT_VERSION}.jar" \
+            -DpomFile="target/${ARTIFACT_ID}-${PROJECT_VERSION}.pom" \
+            -s "${SETTINGS_XML}" \
             -P deploy-github-packages
       - name: 📦 Upload assets to GitHub Release
         if: ${{ needs.build.outputs.is_release == 'true' }}
-        env:
-          RELEASE_VERSION: ${{ needs.build.outputs.project_version }}
         run: |-
-          gh release upload "v${RELEASE_VERSION}" "target/*-${RELEASE_VERSION}.jar" --clobber
+          gh release upload "v${PROJECT_VERSION}" "target/*-${PROJECT_VERSION}.jar" --clobber
+
+  # Security scanning job that runs in parallel
+  security-scan:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: 📄 Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          persist-credentials: false
+      - name: 🧱 Setup JDK
+        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00  # v4.7.1
+        with:
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: maven
+      - name: 🔐 Run OWASP Dependency Check
+        run: |
+          mvn --batch-mode -s "${SETTINGS_XML}" \
+            org.owasp:dependency-check-maven:check \
+            -Dformat=sarif \
+            -DfailBuildOnCVSS=7
+        continue-on-error: true
+      - name: 📤 Upload SARIF results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: target/dependency-check-report.sarif

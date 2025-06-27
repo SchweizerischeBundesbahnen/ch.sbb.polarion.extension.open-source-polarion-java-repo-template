@@ -7,7 +7,14 @@
       "Bash(ls:*)",
       "Bash(find:*)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(mkdir:*)",
+      "Bash(mvn test:*)",
+      "Bash(mvn dependency:*)",
+      "Bash(mvn clean verify:*)",
+      "Bash(mvn jacoco:prepare-agent:*)",
+      "Bash(mvn surefire:test:*)",
+      "Bash(pre-commit run:*)"
     ],
     "deny": []
   }
