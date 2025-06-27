@@ -143,11 +143,32 @@ jobs:
           cache: maven
       - name: 📦 Deploy to Maven Central
         run: |
-          mvn --batch-mode -s "${SETTINGS_XML}" deploy \
-            -Dmaven.test.skip=true \
-            -Dmaven.main.skip=true \
-            -Dmaven.javadoc.skip=true \
-            -Dmaven.source.skip=true \
+          # Deploy main JAR
+          mvn --batch-mode -s "${SETTINGS_XML}" deploy:deploy-file \
+            -Dfile="target/${ARTIFACT_ID}-${PROJECT_VERSION}.jar" \
+            -DpomFile="target/${ARTIFACT_ID}-${PROJECT_VERSION}.pom" \
+            -Durl="https://central.sonatype.com/api/v1/publisher/upload" \
+            -DrepositoryId="sonatype-central" \
+            -P central-publishing \
+            -Dcentral-publishing-maven-plugin.autoPublish=false
+
+          # Deploy sources JAR
+          mvn --batch-mode -s "${SETTINGS_XML}" deploy:deploy-file \
+            -Dfile="target/${ARTIFACT_ID}-${PROJECT_VERSION}-sources.jar" \
+            -DpomFile="target/${ARTIFACT_ID}-${PROJECT_VERSION}.pom" \
+            -Dclassifier=sources \
+            -Durl="https://central.sonatype.com/api/v1/publisher/upload" \
+            -DrepositoryId="sonatype-central" \
+            -P central-publishing \
+            -Dcentral-publishing-maven-plugin.autoPublish=false
+
+          # Deploy javadoc JAR
+          mvn --batch-mode -s "${SETTINGS_XML}" deploy:deploy-file \
+            -Dfile="target/${ARTIFACT_ID}-${PROJECT_VERSION}-javadoc.jar" \
+            -DpomFile="target/${ARTIFACT_ID}-${PROJECT_VERSION}.pom" \
+            -Dclassifier=javadoc \
+            -Durl="https://central.sonatype.com/api/v1/publisher/upload" \
+            -DrepositoryId="sonatype-central" \
             -P central-publishing \
             -Dcentral-publishing-maven-plugin.autoPublish=false
   deploy-github-packages:
