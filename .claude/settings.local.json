@@ -14,7 +14,9 @@
       "Bash(mvn clean verify:*)",
       "Bash(mvn jacoco:prepare-agent:*)",
       "Bash(mvn surefire:test:*)",
-      "Bash(pre-commit run:*)"
+      "Bash(pre-commit run:*)",
+      "Bash(gh api:*)",
+      "Bash(yamllint:*)"
     ],
     "deny": []
   }

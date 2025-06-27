@@ -69,7 +69,12 @@ jobs:
         if: github.event_name == 'push'
         env:
           GITHUB_HEAD_REF: ${{ github.head_ref }}
-        run: mvn --batch-mode -s "${SETTINGS_XML}" clean verify -P gpg-sign sonar:sonar -Dsonar.branch.name="${GITHUB_HEAD_REF}"
+        run: |
+          if [ -n "${GITHUB_HEAD_REF}" ]; then
+            mvn --batch-mode -s "${SETTINGS_XML}" clean verify -P gpg-sign sonar:sonar -Dsonar.branch.name="${GITHUB_HEAD_REF}"
+          else
+            mvn --batch-mode -s "${SETTINGS_XML}" clean verify -P gpg-sign sonar:sonar
+          fi
       - name: 📦 Build with Maven for PRs
         if: github.event_name == 'pull_request'
         env:
