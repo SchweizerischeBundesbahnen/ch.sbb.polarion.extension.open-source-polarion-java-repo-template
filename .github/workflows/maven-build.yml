@@ -17,7 +17,6 @@ jobs:
     permissions:
       contents: read
       packages: read
-      # checks: write  # for test results
     outputs:
       project_version: ${{ steps.project_metadata.outputs.version }}
       artifact_id: ${{ steps.project_metadata.outputs.artifact_id }}
@@ -84,23 +83,7 @@ jobs:
       - name: 📋 Analyze dependencies
         if: github.event_name == 'pull_request'
         run: mvn --batch-mode dependency:analyze
-        continue-on-error: true
-#      - name: 📊 Publish Test Results
-#        uses: EnricoMi/publish-unit-test-result-action@3a74b2957438d0b6e2e61d67b05318aa25c9e6c6  # v2.20.0
-#        if: always()
-#        with:
-#          files: |
-#            target/surefire-reports/*.xml
-#            target/failsafe-reports/*.xml
-#          check_name: Test Results
-#          comment_mode: false
-#      - name: 📈 Upload coverage to Codecov
-#        uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24  # v5.4.3
-#        if: always()
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
-#          files: target/site/jacoco/jacoco.xml
-#          fail_ci_if_error: false
+        continue-on-error: false
       - name: 📦 Upload build artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
         with:
@@ -185,39 +168,3 @@ jobs:
         if: ${{ needs.build.outputs.is_release == 'true' }}
         run: |-
           gh release upload "v${PROJECT_VERSION}" "target/*-${PROJECT_VERSION}.jar" --clobber
-
-  # Security scanning job that runs in parallel
-#  security-scan:
-#    runs-on: ubuntu-latest
-#    permissions:
-#      security-events: write
-#    steps:
-#      - name: 📄 Checkout code
-#        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
-#        with:
-#          persist-credentials: false
-#      - name: 🧱 Setup JDK
-#        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00  # v4.7.1
-#        with:
-#          distribution: ${{ env.JAVA_DISTRIBUTION }}
-#          java-version: ${{ env.JAVA_VERSION }}
-#          cache: maven
-#      - name: 🔍 Cache OWASP Dependency Check database
-#        uses: actions/cache@v4.2.3
-#        with:
-#          path: ~/.owasp/dependency-check-data
-#          key: ${{ runner.os }}-owasp-db-${{ hashFiles('dependency-check-maven/**/pom.xml', '**/dependency-check.properties') }}
-#          restore-keys: |
-#            ${{ runner.os }}-owasp-db-
-#      - name: 🔐 Run OWASP Dependency Check
-#        run: |
-#          mvn --batch-mode -s "${SETTINGS_XML}" \
-#            org.owasp:dependency-check-maven:check \
-#            -Dformat=sarif \
-#            -DfailBuildOnCVSS=7
-#        continue-on-error: true
-#      - name: 📤 Upload SARIF results
-#        uses: github/codeql-action/upload-sarif@v3.29.1
-#        if: always()
-#        with:
-#          sarif_file: target/dependency-check-report.sarif
