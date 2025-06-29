@@ -82,7 +82,7 @@ jobs:
         run: mvn --batch-mode -s "${SETTINGS_XML}" clean verify sonar:sonar -Dsonar.pullrequest.base="${GITHUB_BASE_REF}" -Dsonar.pullrequest.branch="${GITHUB_HEAD_REF}" -Dsonar.pullrequest.key="${GITHUB_PR_NUMBER_REF}"
       - name: 📋 Analyze dependencies
         if: github.event_name == 'pull_request'
-        run: mvn --batch-mode dependency:analyze
+        run: mvn --batch-mode -s "${SETTINGS_XML}" dependency:analyze
         continue-on-error: false
       - name: 📦 Upload build artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
