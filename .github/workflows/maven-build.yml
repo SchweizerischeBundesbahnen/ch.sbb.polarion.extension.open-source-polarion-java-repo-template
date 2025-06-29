@@ -162,7 +162,8 @@ jobs:
             -DpomFile="target/${ARTIFACT_ID}-${PROJECT_VERSION}.pom" \
             -Durl="https://maven.pkg.github.com/${GITHUB_REPO_NAME}" \
             -DrepositoryId="github" \
-            -s "${SETTINGS_XML}"
+            -s "${SETTINGS_XML}" \
+            -P deploy-github-packages
       - name: 📦 Upload assets to GitHub Release
         if: ${{ needs.build.outputs.is_release == 'true' }}
         run: |-
