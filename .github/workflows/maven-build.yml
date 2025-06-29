@@ -144,9 +144,17 @@ jobs:
           gpg-private-key: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PRIVATE_KEY }}
       - name: 📦 Deploy to Maven Central
         run: |
+          # List downloaded artifacts for debugging
+          echo "Downloaded artifacts:"
+          ls -la target/
+
+          # List Maven cache contents for debugging
+          echo "Maven cache contents:"
+          ls -la ~/.m2/repository/ch/sbb/polarion/extensions/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/ || echo "No cached artifacts found"
+
           # Artifacts are already in local repository from build job via Maven cache
           # Deploy using central-publishing-maven-plugin
-          mvn --batch-mode -s "${SETTINGS_XML}" \
+          mvn --batch-mode -s "${SETTINGS_XML}" -X \
             org.sonatype.central:central-publishing-maven-plugin:publish \
             -Dcentral-publishing-maven-plugin.autoPublish=false \
             -Dgpg.passphrase="${COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE}"
