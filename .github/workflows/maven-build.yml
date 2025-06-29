@@ -67,11 +67,12 @@ jobs:
         if: github.event_name == 'push'
         env:
           GITHUB_HEAD_REF: ${{ github.head_ref }}
+          COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE }}
         run: |
           if [ -n "${GITHUB_HEAD_REF}" ]; then
-            mvn --batch-mode -s "${SETTINGS_XML}" clean verify sonar:sonar -Dsonar.branch.name="${GITHUB_HEAD_REF}"
+            mvn --batch-mode -s "${SETTINGS_XML}" clean install sonar:sonar -Dsonar.branch.name="${GITHUB_HEAD_REF}" -P gpg-sign
           else
-            mvn --batch-mode -s "${SETTINGS_XML}" clean verify sonar:sonar
+            mvn --batch-mode -s "${SETTINGS_XML}" clean install sonar:sonar -P gpg-sign
           fi
       - name: 📦 Build with Maven for PRs
         if: github.event_name == 'pull_request'
@@ -141,19 +142,12 @@ jobs:
           gpg-private-key: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PRIVATE_KEY }}
       - name: 📦 Deploy to Maven Central
         run: |
-          # Deploy using pre-built artifacts with central-publishing-maven-plugin
-          mvn org.sonatype.central:central-publishing-maven-plugin:publish \
-            -Dfile="target/${ARTIFACT_ID}-${PROJECT_VERSION}.jar" \
-            -Dsources="target/${ARTIFACT_ID}-${PROJECT_VERSION}-sources.jar" \
-            -Djavadoc="target/${ARTIFACT_ID}-${PROJECT_VERSION}-javadoc.jar" \
-            -DpomFile="target/${ARTIFACT_ID}-${PROJECT_VERSION}.pom" \
-            -s "${SETTINGS_XML}" \
+          # Artifacts are already in local repository from build job via Maven cache
+          # Deploy using central-publishing-maven-plugin
+          mvn --batch-mode -s "${SETTINGS_XML}" \
+            org.sonatype.central:central-publishing-maven-plugin:publish \
             -Dcentral-publishing-maven-plugin.autoPublish=false \
             -Dgpg.passphrase="${COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE}"
-        env:
-          PROJECT_VERSION: ${{ needs.build.outputs.project_version }}
-          ARTIFACT_ID: ${{ needs.build.outputs.artifact_id }}
-          GROUP_ID: ${{ needs.build.outputs.group_id }}
   deploy-github-packages:
     needs: build
     if: ${{ github.ref == 'refs/heads/main' }}
