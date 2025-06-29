@@ -145,6 +145,7 @@ jobs:
         run: |
           mvn --batch-mode -s "${SETTINGS_XML}" -X \
             org.sonatype.central:central-publishing-maven-plugin:publish \
+            -DpublishingServerId="central" \
             -Dcentral-publishing-maven-plugin.autoPublish=false
   deploy-github-packages:
     needs: build
