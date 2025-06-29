@@ -121,6 +121,9 @@ jobs:
       contents: read
       packages: read
     env:
+      PROJECT_VERSION: ${{ needs.build.outputs.project_version }}
+      ARTIFACT_ID: ${{ needs.build.outputs.artifact_id }}
+      GROUP_ID: ${{ needs.build.outputs.group_id }}
       COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_USERNAME: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_USERNAME }}
       COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_TOKEN: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_TOKEN }}
       COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE }}
@@ -130,11 +133,11 @@ jobs:
         with:
           fetch-depth: 1
           persist-credentials: false
-      - name: 📥 Download build artifacts
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4.3.0
-        with:
-          name: maven-artifacts
-          path: target/
+#      - name: 📥 Download build artifacts
+#        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4.3.0
+#        with:
+#          name: maven-artifacts
+#          path: target/
       - name: 🧱 Set up JDK and Maven with cache
         uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00  # v4.7.1
         with:
@@ -144,18 +147,15 @@ jobs:
           gpg-private-key: ${{ secrets.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PRIVATE_KEY }}
       - name: 📦 Deploy to Maven Central
         run: |
-          # List downloaded artifacts for debugging
-          echo "Downloaded artifacts:"
-          ls -la target/
-
           # List Maven cache contents for debugging
           echo "Maven cache contents:"
-          ls -la ~/.m2/repository/ch/sbb/polarion/extensions/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/ || echo "No cached artifacts found"
-
-          # Artifacts are already in local repository from build job via Maven cache
-          # Deploy using central-publishing-maven-plugin
-          mvn --batch-mode -s "${SETTINGS_XML}" -X \
+          ls -la ~/.m2/repository/ch/sbb/polarion/extensions/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/1.4.2/ || echo "No cached artifacts found"
+          # Deploy using central-publishing-maven-plugin with explicit coordinates
+          mvn --batch-mode -s "${SETTINGS_XML}" \
             org.sonatype.central:central-publishing-maven-plugin:publish \
+            -DgroupId="${GROUP_ID}" \
+            -DartifactId="${ARTIFACT_ID}" \
+            -Dversion="${PROJECT_VERSION}" \
             -Dcentral-publishing-maven-plugin.autoPublish=false \
             -Dgpg.passphrase="${COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_GPG_PASSPHRASE}"
   deploy-github-packages:
