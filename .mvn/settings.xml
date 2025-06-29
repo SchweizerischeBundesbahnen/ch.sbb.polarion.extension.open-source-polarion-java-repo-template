@@ -38,7 +38,7 @@
             <password>${env.GITHUB_TOKEN}</password>
         </server>
         <server>
-            <id>sonatype-central</id>
+            <id>central</id>
             <username>${env.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_USERNAME}</username>
             <password>${env.COM_SONATYPE_CENTRAL_POLARION_OPENSOURCE_TOKEN}</password>
         </server>
