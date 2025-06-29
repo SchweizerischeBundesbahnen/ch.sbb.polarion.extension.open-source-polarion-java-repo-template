@@ -135,7 +135,6 @@ jobs:
       ARTIFACT_ID: ${{ needs.build.outputs.artifact_id }}
       GROUP_ID: ${{ needs.build.outputs.group_id }}
       GITHUB_TOKEN: ${{ github.token }}
-      GITHUB_ACTOR: ${{ github.actor }}
       GITHUB_REPO_NAME: ${{ github.repository }}
     steps:
       - name: 📄 Checkout the repository
