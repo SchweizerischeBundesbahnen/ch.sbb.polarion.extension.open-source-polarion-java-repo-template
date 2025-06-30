@@ -130,6 +130,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ github.token }}
       GITHUB_REPO_NAME: ${{ github.repository }}
+      PROJECT_VERSION: ${{ needs.build.outputs.project_version }}
     steps:
       - name: 📄 Checkout the repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
@@ -151,7 +152,7 @@ jobs:
       - name: 📦 Deploy to GitHub Packages
         # Releases should be only deployed to GitHub packages when the repo is private
         # only snapshots must be always deployed here
-        # if: ${{ env.IS_RELEASE == 'false' }}  # comment out when the repo is public
+        # if: ${{ needs.build.outputs.is_release == 'false' }}  # comment out when the repo is public
         run: |
           mvn --batch-mode -s "${SETTINGS_XML}" deploy \
             -Dmaven.test.skip=true \
