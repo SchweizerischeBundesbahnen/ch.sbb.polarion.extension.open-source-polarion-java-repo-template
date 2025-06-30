@@ -1,5 +1,36 @@
 # Changelog
 
+## [1.3.16](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.15...v1.3.16) (2025-06-30)
+
+
+### Bug Fixes
+
+* add debugging output for downloaded artifacts and Maven cache in maven-build.yml ([933f9ca](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/933f9ca16acbea7846b2a1fd6efd738c01aa05f5))
+* add deploy-github-packages profile to maven-build.yml for asset upload ([1430f18](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/1430f18d137f994ad82d44d66dd3078f154a2631))
+* add deploy-github-packages profile to maven-build.yml for asset upload ([8f46eaa](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/8f46eaae14ad23d16301be199b302b57697f2b91))
+* add deploy-github-packages profile to maven-build.yml for asset upload ([0b61702](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/0b61702b745679f848418d05b2cb3e2d6731bbd4))
+* add GPG passphrase secret to maven-build.yml ([4f5d447](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/4f5d447b7cd321b0fba6badf0ef15d692f93560f))
+* add GPG private key to maven-build.yml for signing artifacts ([a4231a8](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/a4231a8736ce67fdd2473e3a0a9320472c3c21b6))
+* clean up maven-build.yml by removing commented-out steps and adj… ([#60](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/issues/60)) ([cca4272](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/cca42728bb9cbdafae9a6b5801b7fcead31073ff))
+* comment out artifact download step and enhance debugging output in maven-build.yml ([6796558](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/67965585b637bcf84f4adbff11867afee8f36161))
+* correct syntax for repositoryId in maven-build.yml ([7c472fb](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/7c472fbf5145bd5960d3c490a882e9cc86dde863))
+* correct syntax for repositoryId in maven-build.yml ([a1f8083](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/a1f80838481c8ca14d749e44ad4cd93c193ded49))
+* correct syntax for repositoryId in maven-build.yml ([68d6a7d](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/68d6a7d1a04be9cc9a7346708011ede713363856))
+* correct syntax for repositoryId in maven-build.yml ([4fff2b3](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/4fff2b305b1d8a5b14d33c3ec0cf5b85e172ac9f))
+* correct syntax for repositoryId in maven-build.yml ([f2a680c](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/f2a680c345ccb8a3e75d477642e26e1f4917b68d))
+* enable debug output for Maven deployment in maven-build.yml ([4621abf](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/4621abfdf8ced4aa41d892603041913f259e830f))
+* enhance debugging output in maven-build.yml and adjust environment variable setup ([5a5eac8](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/5a5eac8755fedb563f7925fb833ef6e176e3be71))
+* enhance debugging output in maven-build.yml and adjust environment variable setup ([830494a](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/830494af721e617cac6256ff24091eebd43df769))
+* remove unused environment variables and streamline Maven deployment steps in maven-build.yml ([ac19635](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/ac1963528e38a3125935a100866212139006e37f))
+* remove unused environment variables and streamline Maven deployment steps in maven-build.yml ([1828220](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/1828220a12a51634e5f623e1fa56170c5a004ee4))
+* update maven-build.yml and settings files for GPG configuration and cleanup ([0847d06](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/0847d06e279025373e0c581ac3409bd2f19036a2))
+* update maven-build.yml and settings.xml for GitHub Packages deployment profile ([ff75c98](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/ff75c98d72a3f487be60306440782d11ef533277))
+* update maven-build.yml for deploying artifacts and bump version to 1.4.0 ([46d9d68](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/46d9d684d8541629833a1e6f3ed509116834ce17))
+* update maven-build.yml to replace 'install' with 'verify' for build steps and adjust GPG key usage ([2a3ae8d](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/2a3ae8d909965ef21f8f0a2f58891795f5bb8e8c))
+* update maven-build.yml to use 'install' instead of 'verify' and adjust deployment steps ([8d18f9b](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/8d18f9b449fb583f3dfba9ad4512697a1c038df9))
+* update maven-build.yml to use central-publishing-maven-plugin for deployment ([6d988e5](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/6d988e5668bd5fe1eaf9b006d3412aae6cae7968))
+* update version to 1.3.16 and remove unnecessary skip option in maven-build.yml ([70831b5](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/70831b5a1abd429dc366976dedb92deb84614ff5))
+
 ## [1.3.15](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.14...v1.3.15) (2025-06-27)
 
 
