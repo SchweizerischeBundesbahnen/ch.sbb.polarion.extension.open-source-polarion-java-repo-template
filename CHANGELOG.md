@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.3.19](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.18...v1.3.19) (2025-12-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v11 ([#67](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/issues/67)) ([1187fe1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/1187fe109ded614d9fb2c1b5d9c8750047868fcc))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v11.0.2 ([191cbc4](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/191cbc48da15095a27e394d78d17749efa34757e))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v11.1.0 ([33b2922](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/33b2922e1ad52f0c0b369bfea6aab6c11a7c13e6))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v11.2.0 ([bd1e054](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/bd1e0545d8f04cf251e55968749fde4a98e98da1))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v11.3.0 ([b9af701](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/b9af7012d64584fcdd8a351e0e4dc61b6b03fb9b))
+
 ## [1.3.18](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.17...v1.3.18) (2025-06-30)
 
 
