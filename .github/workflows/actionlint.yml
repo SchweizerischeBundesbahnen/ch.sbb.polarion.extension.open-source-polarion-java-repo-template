@@ -9,7 +9,7 @@ on:
 permissions: {}
 jobs:
   actionlint:
-    uses: SchweizerischeBundesbahnen/github-workflows-polarion/.github/workflows/reusable-actionlint.yml@main  # zizmor: ignore[unpinned-uses]
+    uses: SchweizerischeBundesbahnen/github-workflows-polarion/.github/workflows/reusable-actionlint.yml@main
     permissions:
       checks: write
       contents: read

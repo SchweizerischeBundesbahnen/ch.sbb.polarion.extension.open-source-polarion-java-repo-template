@@ -6,6 +6,6 @@ on:
 permissions: {}
 jobs:
   check-conventional-commit:
-    uses: SchweizerischeBundesbahnen/github-workflows-polarion/.github/workflows/reusable-pr.yml@main  # zizmor: ignore[unpinned-uses]
+    uses: SchweizerischeBundesbahnen/github-workflows-polarion/.github/workflows/reusable-pr.yml@main
     permissions:
       contents: read

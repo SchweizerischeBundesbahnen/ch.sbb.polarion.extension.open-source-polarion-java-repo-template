@@ -7,7 +7,7 @@ on:
 permissions: {}
 jobs:
   release-please:
-    uses: SchweizerischeBundesbahnen/github-workflows-polarion/.github/workflows/reusable-release-please.yml@main  # zizmor: ignore[unpinned-uses]
+    uses: SchweizerischeBundesbahnen/github-workflows-polarion/.github/workflows/reusable-release-please.yml@main
     permissions:
       contents: write
       pull-requests: write
