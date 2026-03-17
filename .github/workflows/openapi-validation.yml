@@ -1,21 +1,15 @@
 ---
-name: openapi-validate
+name: OpenAPI Validation
 on:
   push:
+  pull_request:
   workflow_dispatch:
+permissions: {}
 jobs:
-  check-openapi-definition:
-    runs-on: ubuntu-latest
+  validate-openapi:
+    uses: SchweizerischeBundesbahnen/github-workflows-polarion/.github/workflows/reusable-openapi-validation.yml@main
     permissions:
       contents: read
-    name: Swagger Editor Validator Remote
-    steps:
-      - name: 📄 Checkout the repository
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3  # v6.0.0
-        with:
-          fetch-depth: 1
-          persist-credentials: false  # Do not persist credentials for security
-      - name: 🧪 Validate OpenAPI definition
-        uses: swaggerexpert/swagger-editor-validate@264fd875d3c6e1bf65da1f0a63e095cbe41ffef3  # v1.5.1
-        with:
-          definition-file: docs/openapi.json
+    with:
+      spec-path: docs/openapi.json
+      redocly-args: --extends=minimal
