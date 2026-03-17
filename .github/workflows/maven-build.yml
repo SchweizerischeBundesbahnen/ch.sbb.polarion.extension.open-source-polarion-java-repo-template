@@ -181,7 +181,7 @@ jobs:
           ARTIFACT_ID=$(mvn -s "${SETTINGS_XML}" help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           PACKAGE_NAME="${GROUP_ID}.${ARTIFACT_ID}"
           API_URL="/orgs/${GITHUB_REPOSITORY_OWNER}/packages/maven/${PACKAGE_NAME}/versions"
-          VERSION_ID=$(gh api "${API_URL}" --jq ".[] | select(.name == \"${PROJECT_VERSION}\") | .id" || true)
+          VERSION_ID=$(gh api --paginate "${API_URL}" --jq ".[] | select(.name == \"${PROJECT_VERSION}\") | .id" || true)
           if [ -n "${VERSION_ID}" ]; then
             gh api --method DELETE "${API_URL}/${VERSION_ID}"
           fi
