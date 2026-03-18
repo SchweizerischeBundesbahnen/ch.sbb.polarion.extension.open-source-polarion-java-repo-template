@@ -4,7 +4,7 @@ rules:
   # (claude-code-action, actions/setup-java) and cannot be moved to env: blocks.
   # Fork-PR workflows are additionally protected by GitHub's approval requirement.
   secrets-outside-env:
-    ignore: [maven-build.yml]
+    ignore: [claude-code-review.yml, maven-build.yml]
   # Reusable workflows from our own org — tracking @main intentionally.
   unpinned-uses:
     config:
