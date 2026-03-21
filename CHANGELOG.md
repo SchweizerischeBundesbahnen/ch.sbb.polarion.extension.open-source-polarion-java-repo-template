@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.19](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.18...v1.3.19) (2026-03-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v11 ([#67](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/issues/67)) ([1187fe1](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/1187fe109ded614d9fb2c1b5d9c8750047868fcc))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v11.0.2 ([191cbc4](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/191cbc48da15095a27e394d78d17749efa34757e))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v11.1.0 ([33b2922](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/33b2922e1ad52f0c0b369bfea6aab6c11a7c13e6))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v11.2.0 ([bd1e054](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/bd1e0545d8f04cf251e55968749fde4a98e98da1))
+* **deps:** update dependency ch.sbb.polarion.extensions:ch.sbb.polarion.extension.generic to v11.3.0 ([b9af701](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/b9af7012d64584fcdd8a351e0e4dc61b6b03fb9b))
+* format LICENSE file for consistent indentation and readability ([254d303](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/254d303786cba2285733c2eef0fb78c5ac0bde4a))
+* update maven-build.yml to exclude template repositories from SonarQube analysis ([e060d36](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/e060d36974ea74e60b77b2a182ec378a2001a644))
+* update zizmor.yml to exclude claude-code-review.yml from secrets-outside-env ([70d71c8](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/70d71c8ec3fa8a2efdc0f77e7b8c25b3eb250e74))
+
 ## [1.3.18](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.17...v1.3.18) (2025-06-30)
 
 
