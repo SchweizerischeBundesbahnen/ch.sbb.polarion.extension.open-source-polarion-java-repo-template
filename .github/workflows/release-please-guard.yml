@@ -23,8 +23,8 @@ jobs:
           BASE_BRANCH: ${{ github.base_ref }}
         run: |-
           VERSION=$(gh api "repos/$GH_REPO/contents/pom.xml?ref=$BASE_BRANCH" \
-            --jq '.content' | base64 -d | grep -m1 '<version>' | \
-            sed 's/.*<version>\(.*\)<\/version>.*/\1/')
+            --jq '.content' | base64 -d | \
+            awk '/<parent>/{p=1} /<\/parent>/{p=0;next} !p && /<version>/{gsub(/.*<version>|<\/version>.*/,""); print; exit}')
           if [[ "$VERSION" != *-SNAPSHOT ]]; then
             echo "::error::Version on '$BASE_BRANCH' is '$VERSION' (not a SNAPSHOT). Merge the release-please snapshot PR first before merging other PRs."
             exit 1
