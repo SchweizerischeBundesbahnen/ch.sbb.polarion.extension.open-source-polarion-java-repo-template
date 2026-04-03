@@ -1,8 +1,10 @@
 ---
-# Release Please Workflow
 # Supports both main branch and LTS (Long-Term Support) branches.
 # LTS branches must follow the naming pattern: release-v{major} (e.g., release-v6)
 # See RELEASE.md for full documentation on LTS releases.
+#
+# After a release, the snapshot-bump job pushes the next SNAPSHOT version
+# directly to the branch (skip-snapshot: true eliminates the separate PR).
 name: release-please
 on:
   push:
@@ -13,10 +15,55 @@ on:
 permissions: {}
 jobs:
   release-please:
-    uses: SchweizerischeBundesbahnen/github-workflows-polarion/.github/workflows/reusable-release-please.yml@main
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
-    with:
-      release-type: maven
-      target-branch: ${{ github.ref_name }}
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      version: ${{ steps.release.outputs.version }}
+    steps:
+      - name: Run Release Please
+        id: release
+        uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38  # v4.4.0
+        with:
+          release-type: maven
+          include-v-in-tag: true
+          target-branch: ${{ github.ref_name }}
+          skip-snapshot: true
+  snapshot-bump:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        with:
+          ref: ${{ github.ref_name }}
+          persist-credentials: false
+      - name: Bump to next SNAPSHOT version
+        env:
+          RELEASED_VERSION: ${{ needs.release-please.outputs.version }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |-
+          IFS='.' read -r major minor patch <<< "$RELEASED_VERSION"
+          NEXT_SNAPSHOT="${major}.${minor}.$((patch + 1))-SNAPSHOT"
+
+          # Update project version in pom.xml (skip <parent> block)
+          awk -v ver="$NEXT_SNAPSHOT" '
+            /<parent>/ { p=1 }
+            /<\/parent>/ { p=0 }
+            !done && !p && /<version>/ {
+              sub(/<version>[^<]*<\/version>/, "<version>" ver "</version>")
+              done = 1
+            }
+            { print }
+          ' pom.xml > pom.xml.tmp && mv pom.xml.tmp pom.xml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git add pom.xml
+          git commit -m "chore: bump version to ${NEXT_SNAPSHOT}"
+          git push
