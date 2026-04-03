@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.20](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.19...v1.3.20) (2026-04-03)
+
+
+### Bug Fixes
+
+* check pom.xml version instead of querying open PRs ([51dab73](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/51dab739124eab7260e50a609f61aab181abbb5a))
+* extract project version skipping parent pom version ([06c6db8](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/06c6db8d424f335c1f373d0a4a0f2271875e55a2))
+* match release-please PRs by branch prefix instead of author ([9e6e02e](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/9e6e02ebb101e800a3ab7b7ac5fcfa824e6bb4bb))
+
 ## [1.3.19](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.18...v1.3.19) (2026-04-03)
 
 
