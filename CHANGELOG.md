@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.21](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.20...v1.3.21) (2026-04-03)
+
+
+### Bug Fixes
+
+* trigger release ([9bea92d](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/commit/9bea92d92c5f5f9dc4a5eb5e26ee75981082b4e8))
+
 ## [1.3.20](https://github.com/SchweizerischeBundesbahnen/ch.sbb.polarion.extension.open-source-polarion-java-repo-template/compare/v1.3.19...v1.3.20) (2026-04-03)
 
 
